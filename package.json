@@ -1,0 +1,10 @@
+{
+  "name": "escapada-mar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Escapada · Mar — experiencia web cinematográfica",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}

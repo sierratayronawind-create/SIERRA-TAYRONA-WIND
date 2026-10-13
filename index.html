@@ -1,0 +1,1467 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Escapada · Mar — Frente al mar</title>
+<meta name="description" content="Apartamento turístico frente al mar. Recorre sus espacios en una experiencia cinematográfica: piscina, balcón, sala, cocina, comedor, gimnasio, cancha y zonas sociales.">
+<meta name="theme-color" content="#071018">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23071018'/%3E%3Cpath d='M6 20q5-6 10 0t10 0' fill='none' stroke='%23f4cc8d' stroke-width='2.4' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='11' r='3.4' fill='%23ead0ac'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/escena-11.webp?v=6">
+<link rel="preload" as="image" href="images/escena-01.webp?v=7">
+<style>
+:root{
+  --ink:#071018;
+  --ink-deep:#04090e;
+  --sand:#ead0ac;
+  --gold:#f4cc8d;
+  --gold-soft:rgba(244,204,141,.55);
+  --white:#f7f4ee;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Manrope","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink)}
+body{
+  background:var(--ink);
+  color:var(--white);
+  font-family:var(--sans);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--gold);color:var(--ink)}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--ink-deep)}
+::-webkit-scrollbar-thumb{background:#2c3d47;border-radius:8px}
+
+/* ---------- Escenario fijo ---------- */
+.stage{
+  position:relative;
+  height:100vh;
+  height:100svh;
+  overflow:hidden;
+  background:var(--ink-deep);
+}
+.scenes{position:absolute;inset:0}
+.scene{
+  position:absolute;inset:0;
+  opacity:0;visibility:hidden;
+  overflow:hidden;
+  will-change:opacity;
+}
+.scene img{
+  position:absolute;
+  left:-4%;top:-4%;
+  width:108%;height:108%;
+  object-fit:cover;
+}
+
+/* ---------- Capas cinematográficas ---------- */
+.shade{
+  position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:
+    radial-gradient(74% 52% at 50% 55%, rgba(4,10,15,.64), rgba(4,10,15,.28) 52%, transparent 78%),
+    linear-gradient(180deg,
+      rgba(4,10,15,.42) 0%,
+      rgba(4,10,15,.08) 16%,
+      rgba(4,10,15,0) 30%,
+      rgba(4,10,15,0) 66%,
+      rgba(4,10,15,.58) 100%);
+}
+.vignette{
+  position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:radial-gradient(120% 95% at 50% 44%,transparent 60%,rgba(3,7,11,.18) 100%);
+}
+.veil{
+  position:absolute;inset:0;pointer-events:none;z-index:5;
+  background:var(--ink-deep);opacity:0;
+}
+
+/* ---------- Encabezado ---------- */
+.top{
+  position:fixed;z-index:40;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:30px 4.4vw;gap:20px;
+}
+.top::before{
+  content:"";position:absolute;inset:0 0 -56px;z-index:-1;pointer-events:none;
+  background:linear-gradient(rgba(4,10,15,.5),transparent);
+}
+.top-left{display:flex;align-items:center;gap:18px}
+.burger{
+  display:flex;flex-direction:column;justify-content:center;gap:6px;
+  width:34px;height:34px;background:none;border:0;cursor:pointer;padding:4px;
+}
+.burger i{display:block;width:22px;height:1.5px;background:var(--white);transition:transform .35s ease,opacity .3s}
+.burger:hover i{background:var(--gold)}
+.brand{
+  font-size:12.5px;font-weight:700;letter-spacing:.26em;color:var(--white);
+}
+.nav{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:34px;
+}
+.nav a{
+  position:relative;color:rgba(247,244,238,.78);text-decoration:none;
+  font-size:10.5px;font-weight:600;letter-spacing:.2em;
+  padding:6px 0;transition:color .3s ease;
+}
+.nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:var(--gold);transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .35s ease;
+}
+.nav a:hover{color:var(--white)}
+.nav a.active{color:var(--white)}
+.nav a.active::after{transform:scaleX(1)}
+.cta{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(255,255,255,.45);border-radius:40px;
+  padding:13px 24px;color:var(--white);text-decoration:none;
+  font-size:11.5px;font-weight:600;letter-spacing:.14em;white-space:nowrap;
+  background:rgba(7,16,24,.18);backdrop-filter:blur(8px);
+  transition:background .35s ease,color .35s ease,border-color .35s ease;
+}
+.cta:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.cta .arr{transition:transform .35s ease}
+.cta:hover .arr{transform:translate(2px,-2px)}
+.lang{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.4);border-radius:30px;
+  background:rgba(7,16,24,.18);backdrop-filter:blur(8px);
+  color:var(--white);font-family:var(--sans);
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;
+  padding:9px 14px;cursor:pointer;min-width:44px;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.lang:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.top-right{display:flex;align-items:center;gap:14px}
+
+/* ---------- Textos de escena ---------- */
+.copy{
+  position:absolute;z-index:10;
+  left:50%;top:53%;
+  max-width:min(980px,90vw);
+  opacity:0;visibility:hidden;
+  pointer-events:none;
+  text-align:center;
+  text-shadow:0 2px 30px rgba(0,0,0,.45);
+}
+.copy .line{will-change:transform,opacity}
+.eyebrow{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  font-size:12px;font-weight:700;letter-spacing:.34em;color:var(--gold);
+  text-shadow:0 1px 12px rgba(3,8,12,.6);
+}
+.eyebrow::before{content:"";width:38px;height:1px;background:var(--gold)}
+.copy .eyebrow::after{content:"";width:38px;height:1px;background:var(--gold)}
+.headline{
+  font-family:var(--serif);
+  font-weight:380;
+  font-size:clamp(42px,6.2vw,96px);
+  line-height:1.04;letter-spacing:-.02em;
+  margin:22px 0 20px;
+  text-shadow:0 1px 18px rgba(3,8,12,.55), 0 10px 55px rgba(3,8,12,.45), 0 0 90px rgba(3,8,12,.35);
+  text-wrap:balance;
+}
+.headline em{font-style:italic;color:var(--gold)}
+.detail{
+  font-size:clamp(14.5px,1.45vw,19px);
+  line-height:1.6;font-weight:500;
+  color:rgba(247,244,238,.94);
+  max-width:560px;margin:0 auto;
+  text-shadow:0 1px 14px rgba(3,8,12,.6);
+}
+.btn{
+  pointer-events:auto;
+  display:inline-flex;align-items:center;gap:12px;
+  margin-top:34px;
+  background:var(--gold);color:var(--ink);border:0;border-radius:40px;
+  padding:17px 32px;
+  font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.12em;
+  cursor:pointer;text-decoration:none;
+  box-shadow:0 12px 44px rgba(244,204,141,.28);
+  transition:transform .35s cubic-bezier(.2,.9,.3,1.4),box-shadow .35s ease,background .35s ease;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(244,204,141,.42);background:#ffd9a0}
+.g-more{
+  margin-top:32px;font-size:10px;font-weight:600;letter-spacing:.3em;
+  color:rgba(234,208,172,.72);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+
+/* ---------- Fila de datos (cierre) ---------- */
+.feats{display:flex;justify-content:center;margin-top:40px}
+.feat{display:flex;align-items:center;gap:13px;padding:2px 30px;text-align:left}
+.feat+.feat{border-left:1px solid rgba(255,255,255,.22)}
+.feat svg{width:23px;height:23px;stroke:var(--gold);fill:none;stroke-width:1.5;flex:none}
+.feat b{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--white)}
+.feat span{display:block;font-size:10px;letter-spacing:.12em;color:rgba(247,244,238,.6);margin-top:2px}
+
+/* ---------- Pie: hint + contador ---------- */
+.foot{
+  position:absolute;z-index:20;
+  left:8vw;right:6vw;bottom:5.4%;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  font-size:11px;letter-spacing:.2em;color:var(--sand);
+}
+.hint{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  transition:opacity .5s ease;
+}
+.mouse{
+  display:block;width:19px;height:30px;border:1.5px solid rgba(255,255,255,.55);
+  border-radius:11px;position:relative;
+}
+.mouse::after{
+  content:"";position:absolute;left:50%;top:5px;width:2.5px;height:6px;
+  margin-left:-1.25px;border-radius:2px;background:var(--gold);
+  animation:wheel 1.8s cubic-bezier(.6,.1,.4,1) infinite;
+}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(11px);opacity:0}100%{opacity:0}}
+.hint span{font-size:10px;letter-spacing:.3em;color:var(--sand)}
+.hint.gone{opacity:0}
+.count{display:flex;flex-direction:column;align-items:flex-end;gap:7px;margin-left:auto}
+.count .num{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.count .num b{font-weight:600;font-size:14px;letter-spacing:.2em;color:var(--white)}
+.count .num i{width:16px;height:1px;background:var(--gold);opacity:.7}
+.count .num s{font-weight:500;font-size:10.5px;letter-spacing:.2em;color:rgba(234,208,172,.7);text-decoration:none}
+.count .lbl{font-size:9.5px;letter-spacing:.3em;color:rgba(234,208,172,.75)}
+
+/* ---------- Navegación lateral ---------- */
+.dots{
+  position:absolute;z-index:20;
+  right:3.4vw;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:14px;
+}
+.dot{
+  display:flex;align-items:center;justify-content:flex-end;gap:12px;
+  background:none;border:0;cursor:pointer;padding:3px 0;
+}
+.dot i{
+  display:block;width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.34);
+  transition:transform .4s cubic-bezier(.3,1.4,.4,1),background .4s ease,height .4s ease,border-radius .4s ease;
+}
+.dot span{
+  font-size:9.5px;font-weight:600;letter-spacing:.24em;color:var(--sand);
+  opacity:0;transform:translateX(8px);white-space:nowrap;
+  transition:opacity .3s ease,transform .3s ease;
+}
+.dot:hover span,.dot:focus-visible span{opacity:.85;transform:translateX(0)}
+.dot.on i{
+  background:var(--gold);
+  height:26px;border-radius:6px;transform:scaleX(.9);
+}
+.dot:focus-visible{outline:1px solid var(--gold);outline-offset:4px;border-radius:4px}
+
+/* ---------- Barra de progreso ---------- */
+.bar{position:absolute;z-index:30;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.07)}
+.bar i{
+  display:block;height:100%;width:100%;
+  background:linear-gradient(90deg,var(--sand),var(--gold));
+  transform:scaleX(0);transform-origin:0 50%;
+}
+
+/* ---------- Menú overlay ---------- */
+.menu{
+  position:fixed;inset:0;z-index:60;
+  background:linear-gradient(160deg,#050d13 0%,#0a1a24 100%);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 9vw;
+  opacity:0;visibility:hidden;
+  transition:opacity .5s ease,visibility .5s;
+}
+.menu.open{opacity:1;visibility:visible}
+.menu-close{
+  position:absolute;top:30px;right:4.4vw;width:52px;height:52px;
+  background:none;border:1px solid rgba(255,255,255,.25);border-radius:50%;
+  color:var(--white);font-size:18px;cursor:pointer;
+  transition:background .3s,color .3s;
+}
+.menu-close:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.menu-nav{display:flex;flex-direction:column;gap:2px}
+.menu-nav a{
+  display:flex;align-items:baseline;gap:22px;
+  font-family:var(--serif);font-weight:340;
+  font-size:clamp(38px,6.2vw,74px);line-height:1.18;letter-spacing:-.01em;
+  color:var(--white);text-decoration:none;
+  opacity:0;transform:translateY(26px);
+  transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.3,1),color .3s;
+}
+.menu-nav a small{font-family:var(--sans);font-size:11px;letter-spacing:.28em;color:var(--gold);font-weight:600}
+.menu-nav a:hover{color:var(--gold)}
+.menu.open .menu-nav a{opacity:1;transform:none}
+.menu.open .menu-nav a:nth-child(1){transition-delay:.08s}
+.menu.open .menu-nav a:nth-child(2){transition-delay:.15s}
+.menu.open .menu-nav a:nth-child(3){transition-delay:.22s}
+.menu.open .menu-nav a:nth-child(4){transition-delay:.29s}
+.menu.open .menu-nav a:nth-child(5){transition-delay:.36s}
+.menu-foot{
+  position:absolute;bottom:34px;left:9vw;right:9vw;
+  display:flex;justify-content:space-between;gap:20px;
+  font-size:10px;letter-spacing:.26em;color:rgba(234,208,172,.6);
+}
+
+/* ---------- Galería ---------- */
+.gallery{
+  position:relative;z-index:2;
+  background:linear-gradient(180deg,var(--ink-deep) 0%,var(--ink) 14%);
+  padding:13vh 6vw 9vh;
+}
+.g-head{max-width:920px;margin-bottom:7.5vh}
+.g-head h2{
+  font-family:var(--serif);font-weight:340;
+  font-size:clamp(40px,5.4vw,80px);line-height:1.05;letter-spacing:-.02em;
+  margin:22px 0 18px;text-wrap:balance;
+}
+.g-head p{color:rgba(247,244,238,.7);font-size:15px;line-height:1.65;max-width:520px}
+.g-row{display:flex;gap:16px;margin-bottom:16px;height:clamp(280px,54vh,540px)}
+.g-row--tall{height:clamp(300px,62vh,600px)}
+.g-fig{
+  position:relative;flex:1;min-width:0;
+  overflow:hidden;border-radius:6px;background:#0d1a22;
+  cursor:zoom-in;
+}
+.g-fig.w2{flex:2}
+.g-fig img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+.g-fig:hover img{transform:scale(1.055)}
+.g-fig figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:26px 22px 18px;
+  font-size:10.5px;font-weight:600;letter-spacing:.26em;color:var(--sand);
+  background:linear-gradient(transparent,rgba(4,10,15,.7));
+  opacity:0;transform:translateY(8px);
+  transition:opacity .45s ease,transform .45s ease;
+  pointer-events:none;
+}
+.g-fig:hover figcaption{opacity:1;transform:none}
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:80;
+  background:rgba(3,7,11,.94);backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .4s ease,visibility .4s;
+}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{
+  max-width:90vw;max-height:84vh;object-fit:contain;
+  border-radius:6px;box-shadow:0 30px 90px rgba(0,0,0,.6);
+  transform:scale(.96);transition:transform .4s cubic-bezier(.2,.8,.3,1.1);
+}
+.lightbox.open img{transform:scale(1)}
+.lb-btn{
+  position:absolute;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  color:var(--white);border-radius:50%;width:52px;height:52px;
+  font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .3s,transform .3s;
+}
+.lb-btn:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.lb-close{top:26px;right:30px}
+.lb-prev{left:3vw;top:50%;transform:translateY(-50%)}
+.lb-next{right:3vw;top:50%;transform:translateY(-50%)}
+.lb-count{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font-size:11px;letter-spacing:.26em;color:var(--sand);
+}
+
+/* ---------- Responsive ---------- */
+@media(max-width:860px){
+  .nav{display:none}
+}
+@media(max-width:760px){
+  .top{padding:20px 6vw}
+  .brand{font-size:10.5px;letter-spacing:.2em}
+  .cta{padding:11px 16px;font-size:10px}
+  .copy{max-width:90vw}
+  .headline{font-size:clamp(38px,10.5vw,64px);margin:18px 0 16px}
+  .eyebrow{font-size:10px;gap:12px}
+  .eyebrow::before,.copy--center .eyebrow::after{width:24px}
+  .detail{font-size:14px}
+  .btn{padding:15px 26px;font-size:12px}
+  .feats{flex-direction:column;gap:16px;margin-top:30px}
+  .feat{padding:0;justify-content:flex-start}
+  .feat+.feat{border-left:0}
+  .menu-nav a{gap:14px}
+  .foot{left:7vw;right:7vw;bottom:6%}
+  .count .lbl{display:none}
+  .dots{right:4.5vw;gap:10px}
+  .dot span{display:none}
+  .dot i{width:6px;height:6px}
+  .dot.on i{height:20px}
+  .gallery{padding:11vh 5vw 8vh}
+  .g-row{flex-direction:column;height:auto;gap:12px;margin-bottom:12px}
+  .g-row--tall{height:auto}
+  .g-fig{flex:none;aspect-ratio:4/3}
+  .g-fig.w2{flex:none}
+  .g-fig figcaption{opacity:1;transform:none}
+   .lb-btn{width:44px;height:44px;font-size:16px}
+  .lb-prev{left:12px}.lb-next{right:12px}
+  .lb-close{top:18px;right:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hint .rail::after{animation:none}
+  .cta,.btn,.dot i,.dot span{transition:none}
+}
+
+/* ---------- Panel de reserva ---------- */
+.rsv-back{
+  position:fixed;inset:0;z-index:30;
+  background:url("images/reserva-bg.webp?v=6") center/cover no-repeat #1a2530;
+  filter:saturate(1.14) brightness(1.05);
+  opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s;
+}
+.rsv-back::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(8,14,20,.55),rgba(8,14,20,.28) 50%,rgba(8,14,20,.42));
+}
+.rsv-back.open{opacity:1;visibility:visible}
+.rsv-hero{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  right:calc(min(500px,92vw) + 52px);
+  text-align:center;pointer-events:none;padding:0 3vw;
+}
+.rsv-hero h3{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(44px,5.4vw,88px);line-height:1.05;letter-spacing:-.02em;
+  color:#fff;margin:20px 0 18px;
+  text-shadow:0 2px 10px rgba(3,8,12,.6), 0 10px 44px rgba(3,8,12,.45), 0 0 90px rgba(3,8,12,.35);
+}
+.rsv-hero h3 em{
+  font-style:italic;color:#f8c66e;
+  text-shadow:0 3px 22px rgba(240,180,94,.5), 0 1px 8px rgba(3,8,12,.4);
+}
+.rsv-hero p{
+  font-size:16px;line-height:1.55;color:#fff;margin:0 auto;
+  max-width:460px;text-shadow:0 1px 10px rgba(3,8,12,.65), 0 4px 24px rgba(3,8,12,.45);
+}
+.rsv{
+  position:fixed;top:26px;right:26px;bottom:26px;z-index:71;
+  width:min(500px,92vw);
+  background:rgba(16,20,27,.62);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:22px;
+  transform:translateX(calc(100% + 40px));
+  transition:transform .55s cubic-bezier(.7,0,.2,1);
+  overflow-y:auto;padding:28px 30px 20px;
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
+  color:var(--white);
+}
+.rsv.open{transform:none}
+.rsv-close{
+  position:absolute;top:16px;right:16px;
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);background:none;color:var(--white);
+  font-size:14px;cursor:pointer;transition:background .3s,color .3s;
+}
+.rsv-close:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+.rsv h2{
+  font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:-.01em;
+  color:var(--white);margin:0 0 5px;
+}
+.rsv-sub{font-size:11.5px;line-height:1.5;color:rgba(247,244,238,.65);margin-bottom:18px}
+.rsv-label{
+  display:block;font-size:10px;font-weight:600;letter-spacing:.12em;
+  color:rgba(247,244,238,.72);margin:0 0 13px;text-transform:uppercase;
+}
+.rsv-input,.rsv-select,.rsv-date{
+  width:100%;margin-top:6px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.22);border-radius:11px;
+  padding:10px 13px;color:var(--white);
+  font-family:var(--sans);font-size:13px;
+  outline:none;transition:border-color .3s;
+}
+.rsv-input::placeholder{color:rgba(247,244,238,.4)}
+.rsv-input:focus,.rsv-select:focus{border-color:var(--gold)}
+.rsv-select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ead0ac' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+.rsv-select option{background:#10141b;color:var(--white)}
+.rsv-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rsv-date{
+  display:flex;align-items:center;gap:9px;
+  font-size:12.5px;cursor:default;
+}
+.rsv-date svg{width:15px;height:15px;stroke:rgba(247,244,238,.6);fill:none;stroke-width:1.7;flex:none}
+.rsv-date small{display:block;font-size:8.5px;letter-spacing:.12em;color:rgba(247,244,238,.55);margin-bottom:2px}
+.rsv-date b{font-weight:600;color:var(--white)}
+.rsv-cal{
+  margin-top:2px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 13px;
+}
+.rsv-cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.rsv-cal-head b{font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--white)}
+.rsv-cal-nav{
+  width:26px;height:26px;border-radius:8px;border:1px solid rgba(255,255,255,.22);
+  background:none;color:rgba(247,244,238,.7);cursor:pointer;font-size:13px;line-height:1;
+  transition:border-color .3s,color .3s;
+}
+.rsv-cal-nav:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.rsv-cal-nav:disabled{opacity:.3;cursor:default}
+.rsv-dow,.rsv-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.rsv-grid{justify-items:center;grid-auto-rows:32px}
+.rsv-dow{font-size:8.5px;letter-spacing:.06em;color:rgba(247,244,238,.45);margin-bottom:4px}
+.rsv-day{
+  width:32px;height:32px;border:0;border-radius:8px;background:none;cursor:pointer;
+  font-family:var(--sans);font-size:11.5px;color:var(--white);
+  transition:background .2s;
+}
+.rsv-day:hover:not(:disabled):not(.sel){background:rgba(255,255,255,.12)}
+.rsv-day.off{color:rgba(247,244,238,.22);cursor:default}
+.rsv-day.range{background:rgba(244,204,141,.28)}
+.rsv-day.sel{background:var(--gold);color:var(--ink);font-weight:700}
+.rsv-day.pad{visibility:hidden}
+.rsv-legend{
+  display:flex;gap:13px;margin-top:8px;
+  font-size:8px;letter-spacing:.04em;color:rgba(247,244,238,.5);
+}
+.rsv-legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.rsv-step{display:flex;align-items:center;gap:16px;margin-top:6px}
+.rsv-step button{
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.4);background:none;color:var(--white);
+  font-size:16px;cursor:pointer;transition:border-color .3s,color .3s;
+}
+.rsv-step button:hover{border-color:var(--gold);color:var(--gold)}
+.rsv-step b{min-width:22px;text-align:center;font-size:15px;font-weight:600;color:var(--white)}
+.rsv-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rsv-in-icon{position:relative;display:block}
+.rsv-in-icon svg{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;stroke:rgba(247,244,238,.55);fill:none;stroke-width:1.7;pointer-events:none;
+}
+.rsv-in-icon .rsv-input{padding-left:36px}
+.rsv-send{
+  width:100%;margin-top:2px;padding:15px;
+  background:linear-gradient(180deg,#f0c26e,#e2ad55);
+  color:#241c10;border:0;border-radius:40px;
+  font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.09em;
+  cursor:pointer;transition:filter .3s,transform .3s;
+  box-shadow:0 10px 30px rgba(226,173,85,.4);
+}
+.rsv-send:hover{filter:brightness(1.06);transform:translateY(-2px)}
+.rsv-send.err{background:#d98f7f;box-shadow:none}
+.rsv-safe{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:9px;line-height:1.5;color:rgba(247,244,238,.45);margin-top:10px;text-align:center;
+}
+.rsv-safe svg{width:11px;height:11px;stroke:rgba(247,244,238,.5);fill:none;stroke-width:1.7;flex:none}
+@media(max-width:900px){
+  .rsv-hero{display:none}
+}
+@media(max-height:950px) and (min-width:761px){ .rsv-in{zoom:.85} }
+@media(max-height:880px) and (min-width:761px){ .rsv-in{zoom:.77} }
+@media(max-height:800px) and (min-width:761px){ .rsv-in{zoom:.68} }
+@media(max-height:710px) and (min-width:761px){ .rsv-in{zoom:.6} }
+@media(max-width:760px){
+  .rsv{inset:0;width:100vw;border-radius:0;padding:50px 20px 22px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-left">
+    <button class="burger" id="burger" aria-label="Abrir menú"><i></i><i></i></button>
+    <div class="brand">ESCAPADA&nbsp;·&nbsp;MAR</div>
+  </div>
+  <nav class="nav" id="nav" aria-label="Secciones">
+    <a href="#" data-goto="0" class="active">INICIO</a>
+    <a href="#" data-goto="1">DESTINOS</a>
+    <a href="#" data-goto="7">EXPERIENCIAS</a>
+    <a href="#" data-gallery>GALERÍA</a>
+    <a href="#" data-open-rsv>CONTACTO</a>
+  </nav>
+  <div class="top-right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma">EN</button>
+    <a class="cta" id="ctaTop" href="#" data-open-rsv>CONSULTAR ESTADÍA <span class="arr">↗</span></a>
+  </div>
+</header>
+
+<main class="stage" id="stage" aria-label="Recorrido fotográfico del apartamento. Desliza para avanzar.">
+  <div class="scenes" id="scenes"></div>
+  <div class="shade"></div>
+  <div class="vignette"></div>
+  <div class="veil" id="veil"></div>
+
+  <div id="copies"></div>
+
+  <footer class="foot">
+    <div class="hint" id="hint"><span class="mouse"></span><span>O SIGUE DESLIZANDO</span></div>
+    <div class="count">
+      <span class="num"><b id="countNum">01</b><i></i><s id="countTot">11</s></span>
+      <span class="lbl" id="countLbl">BIENVENIDA</span>
+    </div>
+  </footer>
+
+  <nav class="dots" id="dots" aria-label="Navegación entre escenas"></nav>
+  <div class="bar"><i id="barFill"></i></div>
+</main>
+
+<section class="gallery" id="galeria" aria-label="Galería de fotografías">
+  <div class="g-head">
+    <div class="line eyebrow">GALERÍA</div>
+    <h2 class="line">Cada rincón, frente al mar.</h2>
+    <p class="line">Fotografías reales del apartamento y las zonas comunes del edificio.</p>
+  </div>
+
+  <div class="g-row g-row--tall">
+    <figure class="g-fig w2"><img src="images/escena-01.webp?v=7" alt="Atardecer dorado en la playa" loading="lazy" decoding="async"><figcaption>PLAYA · ATARDECER</figcaption></figure>
+    <figure class="g-fig"><img src="images/escena-02.webp?v=6" alt="Piscina con palmeras y vista al mar" loading="lazy" decoding="async"><figcaption>PISCINA FRENTE AL MAR</figcaption></figure>
+  </div>
+  <div class="g-row">
+    <figure class="g-fig"><img src="images/escena-11.webp?v=6" alt="Entrada tropical frente al mar" loading="lazy" decoding="async"><figcaption>ENTRADA TROPICAL</figcaption></figure>
+    <figure class="g-fig"><img src="images/escena-04.webp?v=6" alt="Sala principal con ventanal" loading="lazy" decoding="async"><figcaption>SALA PRINCIPAL</figcaption></figure>
+    <figure class="g-fig w2"><img src="images/escena-07.webp?v=6" alt="Terraza con piscina y jardines frente al mar" loading="lazy" decoding="async"><figcaption>TERRAZA Y JARDINES</figcaption></figure>
+  </div>
+  <div class="g-row">
+    <figure class="g-fig"><img src="images/escena-05.webp?v=6" alt="Cocina moderna" loading="lazy" decoding="async"><figcaption>COCINA</figcaption></figure>
+    <figure class="g-fig"><img src="images/escena-06.webp?v=6" alt="Comedor familiar" loading="lazy" decoding="async"><figcaption>COMEDOR</figcaption></figure>
+    <figure class="g-fig"><img src="images/escena-08.webp?v=6" alt="Gimnasio del edificio" loading="lazy" decoding="async"><figcaption>GIMNASIO</figcaption></figure>
+  </div>
+  <div class="g-row g-row--tall">
+    <figure class="g-fig"><img src="images/escena-09.webp?v=6" alt="Cancha de microfútbol" loading="lazy" decoding="async"><figcaption>CANCHA EN LA AZOTEA</figcaption></figure>
+    <figure class="g-fig w2"><img src="images/escena-03.webp?v=6" alt="Balcón iluminado de noche frente al mar" loading="lazy" decoding="async"><figcaption>BALCÓN CON VISTA</figcaption></figure>
+  </div>
+  <div class="g-row g-row--tall">
+    <figure class="g-fig"><img src="images/escena-10.webp?v=6" alt="Salón social del edificio" loading="lazy" decoding="async"><figcaption>SALÓN SOCIAL</figcaption></figure>
+  </div>
+</section>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <button class="menu-close" id="menuClose" aria-label="Cerrar menú">✕</button>
+  <nav class="menu-nav" aria-label="Menú">
+    <a href="#" data-goto="0"><small>01</small>Inicio</a>
+    <a href="#" data-goto="1"><small>02</small>Destinos</a>
+    <a href="#" data-goto="7"><small>03</small>Experiencias</a>
+    <a href="#" data-gallery><small>04</small>Galería</a>
+    <a href="#" data-open-rsv><small>05</small>Contacto</a>
+  </nav>
+  <div class="menu-foot"><span>ESCAPADA&nbsp;·&nbsp;MAR</span><span>FRENTE AL MAR</span></div>
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Fotografía ampliada">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Cerrar">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior">←</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Siguiente">→</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div class="rsv-back" id="rsvBack">
+  <div class="rsv-hero">
+    <div class="eyebrow">RESERVA TU ESTADÍA</div>
+    <h3>Vive el mar<br><em>a tu ritmo.</em></h3>
+    <p>Selecciona tus fechas y asegura tu próxima estadía frente al mar.</p>
+  </div>
+</div>
+<aside class="rsv" id="rsv" aria-hidden="true" aria-label="Solicitud de reserva">
+  <button class="rsv-close" id="rsvClose" aria-label="Cerrar">✕</button>
+  <div class="rsv-in">
+  <h2>Solicita tu reserva</h2>
+  <p class="rsv-sub">Cuéntanos cuándo quieres venir y te confirmamos la disponibilidad por WhatsApp o correo.</p>
+
+  <label class="rsv-label">Tipo de estadía
+    <select class="rsv-select" id="rsvTipo">
+      <option>Apartamento completo</option>
+      <option>Fin de semana</option>
+      <option>Estadía larga</option>
+    </select>
+  </label>
+
+  <label class="rsv-label">Fechas de estadía
+    <div class="rsv-dates">
+      <div class="rsv-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><div><small>ENTRADA</small><b id="rsvIn">—</b></div></div>
+      <div class="rsv-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><div><small>SALIDA</small><b id="rsvOut">—</b></div></div>
+    </div>
+  </label>
+  <div class="rsv-cal">
+    <div class="rsv-cal-head">
+      <button class="rsv-cal-nav" id="calPrev" aria-label="Mes anterior">‹</button>
+      <b id="calTitle"></b>
+      <button class="rsv-cal-nav" id="calNext" aria-label="Mes siguiente">›</button>
+    </div>
+    <div class="rsv-dow"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+    <div class="rsv-grid" id="calGrid"></div>
+    <div class="rsv-legend">
+      <span><i style="background:rgba(255,255,255,.18)"></i>Disponible</span>
+      <span><i style="background:var(--gold)"></i>Seleccionado</span>
+      <span><i style="background:rgba(255,255,255,.06)"></i>No disponible</span>
+    </div>
+  </div>
+
+  <label class="rsv-label" style="margin-top:20px">Número de huéspedes
+    <div class="rsv-step">
+      <button type="button" id="guestDown" aria-label="Menos">−</button>
+      <b id="guestNum">2</b>
+      <button type="button" id="guestUp" aria-label="Más">+</button>
+    </div>
+  </label>
+
+  <label class="rsv-label">Nombre completo
+    <span class="rsv-in-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg><input class="rsv-input" id="rsvName" type="text" placeholder="Ej: Juan Sebastián Zuluaga" autocomplete="name"></span>
+  </label>
+  <div class="rsv-2col">
+    <label class="rsv-label">WhatsApp / Teléfono
+      <span class="rsv-in-icon"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><input class="rsv-input" id="rsvPhone" type="tel" placeholder="+57 300 123 4567" autocomplete="tel"></span>
+    </label>
+    <label class="rsv-label">Correo electrónico
+      <span class="rsv-in-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><input class="rsv-input" id="rsvMail" type="email" placeholder="ejemplo@correo.com" autocomplete="email"></span>
+    </label>
+  </div>
+
+  <button class="rsv-send" id="rsvSend">ENVIAR SOLICITUD DE RESERVA <span class="arr">↗</span></button>
+  <p class="rsv-safe"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Tus datos están seguros. Solo los usaremos para confirmar tu solicitud.</p>
+  </div>
+</aside>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/ScrollToPlugin.min.js"></script>
+<script>
+/* ============================================================
+   ESCAPADA · MAR — Experiencia cinematográfica en una sola pantalla
+   ============================================================ */
+
+// ← Reemplaza por el número real de WhatsApp (código de país + número, sin +)
+const WHATSAPP_URL = 'https://wa.me/573000000000?text=' +
+  encodeURIComponent('Hola, quiero consultar disponibilidad del apartamento frente al mar.');
+
+/* Escenas: fotografía real + textos + ajuste de color por ambiente */
+const SCENES = [
+  { img:'images/escena-11.webp?v=6', alt:'Entrada tropical del edificio con letrero frente al mar',
+    nav:'Bienvenida', eyebrow:'BIENVENIDA',
+    title:'Donde comienza tu <em>escapada</em>.',
+    text:'Entrada tropical frente al mar, en el corazón del edificio.',
+    grade:'saturate(1.16) contrast(1.06) brightness(1.02)',
+    tint:'linear-gradient(160deg, rgba(255,140,50,.10), rgba(20,8,0,.12))' },
+
+  { img:'images/escena-01.webp?v=7', alt:'Atardecer dorado en la playa frente al apartamento',
+    nav:'Playa', eyebrow:'PLAYA',
+    title:'Hay lugares que se <em>sienten</em> diferentes.',
+    text:'Playa y atardecer a pocos pasos de tu estadía.',
+    grade:'saturate(1.16) contrast(1.06) brightness(1.02)',
+    tint:'linear-gradient(160deg, rgba(255,140,50,.10), rgba(20,8,0,.12))' },
+
+  { img:'images/escena-02.webp?v=6', alt:'Piscina del edificio con palmeras y vista al mar',
+    nav:'Piscina', eyebrow:'PISCINA',
+    title:'Un horizonte para <em>desconectarte</em>.',
+    text:'Piscina con vista abierta al mar, dentro del edificio.',
+    grade:'saturate(1.15) contrast(1.06) brightness(1.02)',
+    tint:'linear-gradient(160deg, rgba(0,110,190,.08), rgba(0,20,40,.10))' },
+
+  { img:'images/escena-03.webp?v=6', alt:'Balcón del apartamento iluminado de noche frente al mar',
+    nav:'Balcón', eyebrow:'BALCÓN',
+    title:'La ciudad y la montaña, desde <em>arriba</em>.',
+    text:'Balcón privado con vista a las montañas y la ciudad.',
+    grade:'saturate(1.14) contrast(1.10) brightness(1.07)',
+    tint:'linear-gradient(160deg, rgba(255,170,80,.07), rgba(0,10,30,.12))' },
+
+  { img:'images/escena-04.webp?v=6', alt:'Sala principal del apartamento con ventanal y vegetación interior',
+    nav:'Sala', eyebrow:'SALA',
+    title:'Diseñado para <em>compartir</em> momentos.',
+    text:'Sala principal luminosa, con vista abierta al océano.',
+    grade:'saturate(1.14) contrast(1.04) brightness(1.02)',
+    tint:'linear-gradient(160deg, rgba(255,190,110,.06), rgba(20,10,0,.10))' },
+
+  { img:'images/escena-05.webp?v=6', alt:'Cocina moderna del apartamento integrada al área social',
+    nav:'Cocina', eyebrow:'COCINA',
+    title:'Espacios pensados para <em>tu ritmo</em>.',
+    text:'Cocina costera con vista abierta al mar.',
+    grade:'saturate(1.10) contrast(1.05) brightness(1.03)',
+    tint:'linear-gradient(160deg, rgba(255,200,130,.05), rgba(25,12,0,.10))' },
+
+  { img:'images/escena-06.webp?v=6', alt:'Comedor familiar del apartamento',
+    nav:'Comedor', eyebrow:'COMEDOR',
+    title:'Los mejores recuerdos <em>comienzan</em> aquí.',
+    text:'Comedor costero de encanto náutico, para compartir en familia.',
+    grade:'saturate(1.12) contrast(1.05)',
+    tint:'linear-gradient(160deg, rgba(255,190,110,.05), rgba(20,10,0,.10))' },
+
+  { img:'images/escena-08.webp?v=6', alt:'Gimnasio del edificio con máquinas y caminadora',
+    nav:'Gimnasio', eyebrow:'GIMNASIO',
+    title:'También hay espacio para <em>tu energía</em>.',
+    text:'Gimnasio moderno con vista al exterior.',
+    grade:'saturate(1.08) contrast(1.07) brightness(1.05)',
+    tint:'linear-gradient(160deg, rgba(180,220,255,.05), rgba(5,15,25,.12))' },
+
+  { img:'images/escena-09.webp?v=6', alt:'Cancha de microfútbol con grama sintética en las zonas comunes',
+    nav:'Cancha', eyebrow:'CANCHA',
+    title:'Una escapada con opciones para <em>todos</em>.',
+    text:'Cancha de fútbol en la azotea del edificio.',
+    grade:'saturate(1.16) contrast(1.06) brightness(1.01)',
+    tint:'linear-gradient(160deg, rgba(40,160,60,.08), rgba(0,20,5,.12))' },
+
+  { img:'images/escena-07.webp?v=6', alt:'Terraza con piscina, jardines tropicales y vista al mar',
+    nav:'Zonas sociales', eyebrow:'ZONAS SOCIALES',
+    title:'La terraza que <em>abraza</em> el mar.',
+    text:'Piscina y jardines tropicales con vista abierta al océano.',
+    grade:'saturate(1.15) contrast(1.05) brightness(1.01)',
+    tint:'linear-gradient(160deg, rgba(0,120,180,.07), rgba(0,25,40,.10))' },
+
+  { img:'images/escena-10.webp?v=6', alt:'Salón social del edificio con muebles de mimbre',
+    nav:'Salón social', eyebrow:'ZONAS SOCIALES',
+    title:'Espacios para <em>encontrarse</em>.',
+    text:'Salón social luminoso, con muebles de mimbre y plantas.',
+    grade:'saturate(1.12) contrast(1.07) brightness(1.06)',
+    tint:'linear-gradient(160deg, rgba(255,190,120,.05), rgba(15,8,0,.12))' },
+
+  { img:'images/escena-01.webp?v=7', alt:'Atardecer en la playa, cierre del recorrido',
+    nav:'Reservar', eyebrow:'RESERVA TU ESTADÍA',
+    title:'Tu próxima historia <em>empieza</em> junto al mar.',
+    text:'Consulta fechas y disponibilidad. Te esperamos frente al mar.',
+    grade:'saturate(1.18) contrast(1.07) brightness(1.0)',
+    tint:'linear-gradient(160deg, rgba(255,140,50,.12), rgba(15,5,0,.16))',
+    center:true, cta:true, feats:true,
+    more:'O SIGUE DESLIZANDO · GALERÍA ↓' },
+];
+
+/* ---------- Idioma ---------- */
+const SCENES_EN = [
+  { nav:'Welcome', eyebrow:'WELCOME',
+    title:'Where your <em>getaway</em> begins.',
+    text:'Tropical entrance facing the sea, at the heart of the building.',
+    alt:'Tropical building entrance with a sign facing the sea' },
+  { nav:'Beach', eyebrow:'BEACH',
+    title:'Some places just <em>feel</em> different.',
+    text:'Beach and golden sunsets just steps from your stay.',
+    alt:'Golden sunset on the beach in front of the apartment' },
+  { nav:'Pool', eyebrow:'POOL',
+    title:'A horizon made to <em>unwind</em>.',
+    text:'Pool with open sea views, inside the building.',
+    alt:'Building pool with palm trees and sea view' },
+  { nav:'Balcony', eyebrow:'BALCONY',
+    title:'The city and the mountains, from <em>above</em>.',
+    text:'Private balcony overlooking the mountains and the city.',
+    alt:'Apartment balcony overlooking mountains and city' },
+  { nav:'Living room', eyebrow:'LIVING ROOM',
+    title:'Made for <em>sharing</em> moments.',
+    text:'Bright living room with open ocean views.',
+    alt:'Living room with large windows and ocean view' },
+  { nav:'Kitchen', eyebrow:'KITCHEN',
+    title:'Spaces designed for <em>your rhythm</em>.',
+    text:'Coastal kitchen with open sea views.',
+    alt:'Modern kitchen integrated into the social area' },
+  { nav:'Dining', eyebrow:'DINING ROOM',
+    title:'The best memories <em>begin</em> here.',
+    text:'Nautical-charm dining room, to share with family and friends.',
+    alt:'Family dining room of the apartment' },
+  { nav:'Gym', eyebrow:'GYM',
+    title:'There is room for <em>your energy</em> too.',
+    text:'Modern gym with outdoor views.',
+    alt:'Building gym with machines and treadmill' },
+  { nav:'Court', eyebrow:'COURT',
+    title:'A getaway with options for <em>everyone</em>.',
+    text:'Soccer court on the building\'s rooftop.',
+    alt:'Rooftop soccer court with synthetic turf' },
+  { nav:'Social areas', eyebrow:'SOCIAL AREAS',
+    title:'The terrace that <em>embraces</em> the sea.',
+    text:'Pool and tropical gardens with open ocean views.',
+    alt:'Terrace with pool, tropical gardens and ocean view' },
+  { nav:'Social lounge', eyebrow:'SOCIAL AREAS',
+    title:'Spaces made for <em>togetherness</em>.',
+    text:'Bright lounge with wicker furniture and plants.',
+    alt:'Building social lounge with wicker furniture' },
+  { nav:'Book now', eyebrow:'BOOK YOUR STAY',
+    title:'Your next story <em>begins</em> by the sea.',
+    text:'Check dates and availability. We are waiting for you by the sea.',
+    alt:'Sunset on the beach, end of the journey',
+    btn:'CHECK AVAILABILITY',
+    feats:[['Dates','real-time'],['Location','beachfront'],['Experiences','unforgettable']],
+    more:'KEEP SCROLLING · GALLERY ↓' },
+];
+let LANG = localStorage.getItem('em-lang') || 'es';
+const S = i => LANG === 'en' ? SCENES_EN[i] : SCENES[i];
+const FEATS_ES = [['Fechas','en tiempo real'],['Ubicación','frente al mar'],['Experiencias','inolvidables']];
+
+/* ------------------------------------------------------------ */
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const N = SCENES.length;
+const XF = REDUCED ? 0.14 : 0.42;           // fracción de escena dedicada a la transición
+const stage  = document.getElementById('stage');
+const scenesBox = document.getElementById('scenes');
+const copiesBox = document.getElementById('copies');
+const dotsBox   = document.getElementById('dots');
+const veil  = document.getElementById('veil');
+const bar   = document.getElementById('barFill');
+const countNum = document.getElementById('countNum');
+const countTot = document.getElementById('countTot');
+const countLbl = document.getElementById('countLbl');
+const navLinks = [...document.querySelectorAll('.nav a')];
+const hint  = document.getElementById('hint');
+const pad = n => String(n).padStart(2,'0');
+/* WhatsApp en ambos CTA */
+/* Los CTA abren el panel de reserva */
+
+/* ---------- Construcción del DOM ---------- */
+const sceneEls = [], imgEls = [], copyEls = [];
+
+const FEAT_ICONS = [
+  '<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>',
+  '<svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-10.4A6.5 6.5 0 0 1 12 4a6.5 6.5 0 0 1 6.5 6.6C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10.5" r="2.4"/></svg>',
+  '<svg viewBox="0 0 24 24"><path d="M12 4.2l2.2 4.9 5.3.6-4 3.6 1.1 5.2L12 15.9 7.4 18.5l1.1-5.2-4-3.6 5.3-.6Z"/></svg>',
+];
+function fillCopy(cp, i) {
+  const t = S(i), s = SCENES[i];
+  const feats = Array.isArray(t.feats) ? t.feats : (s.feats ? FEATS_ES : null);
+  cp.innerHTML =
+    `<div class="line eyebrow">${t.eyebrow}</div>` +
+    `<h1 class="line headline">${t.title}</h1>` +
+    `<div class="line detail">${t.text}</div>` +
+    (s.cta ? `<a class="line btn" href="#" data-open-rsv>${t.btn || 'CONSULTAR DISPONIBILIDAD'} <span class="arr">↗</span></a>` : '') +
+    (feats ? `<div class="line feats">` + feats.map((f, k) =>
+      `<div class="feat">${FEAT_ICONS[k]}<div><b>${f[0]}</b><span>${f[1]}</span></div></div>`).join('') + `</div>` : '') +
+    (s.more ? `<div class="line g-more"><span class="mouse"></span>${t.more || s.more}</div>` : '');
+}
+/* Actualiza textos sin recrear nodos: conserva los tweens del timeline */
+function updateCopy(cp, i) {
+  const t = S(i), s = SCENES[i];
+  cp.querySelector('.eyebrow').textContent = t.eyebrow;
+  cp.querySelector('.headline').innerHTML = t.title;
+  cp.querySelector('.detail').textContent = t.text;
+  const btn = cp.querySelector('.btn');
+  if (btn) btn.innerHTML = (t.btn || 'CONSULTAR DISPONIBILIDAD') + ' <span class="arr">↗</span>';
+  const gm = cp.querySelector('.g-more');
+  if (gm) gm.innerHTML = '<span class="mouse"></span>' + (t.more || s.more);
+  if (s.feats) {
+    const feats = Array.isArray(t.feats) ? t.feats : FEATS_ES;
+    cp.querySelectorAll('.feat').forEach((f, k) => {
+      f.querySelector('b').textContent = feats[k][0];
+      f.querySelector('span').textContent = feats[k][1];
+    });
+  }
+}
+
+SCENES.forEach((s, i) => {
+  const sc = document.createElement('div');
+  sc.className = 'scene';
+  const img = document.createElement('img');
+  img.alt = S(i).alt;
+  img.decoding = 'async';
+  if (i < 3) img.src = s.img;               // primeras escenas: carga inmediata
+  else img.dataset.src = s.img;             // resto: precarga en segundo plano
+  sc.append(img);
+  scenesBox.appendChild(sc);
+  sceneEls.push(sc); imgEls.push(img);
+
+  const cp = document.createElement('div');
+  cp.className = 'copy';
+  gsap.set(cp, { xPercent: -50, yPercent: -50 });
+  fillCopy(cp, i);
+  copiesBox.appendChild(cp);
+  copyEls.push(cp);
+
+  const d = document.createElement('button');
+  d.className = 'dot';
+  d.type = 'button';
+  d.setAttribute('aria-label', (LANG === 'en' ? 'Go to scene ' : 'Ir a la escena ') + (i + 1) + ': ' + S(i).nav);
+  d.innerHTML = `<span>${S(i).nav.toUpperCase()}</span><i></i>`;
+  d.addEventListener('click', () => goTo(i));
+  dotsBox.appendChild(d);
+});
+const dotEls = [...dotsBox.children];
+
+/* Precarga en segundo plano de las escenas cercanas */
+function preloadRest(from) {
+  for (let i = from; i < N; i++) {
+    if (!imgEls[i].src) {
+      const im = new Image();
+      im.onload = () => { imgEls[i].src = SCENES[i].img; };
+      im.src = SCENES[i].img;
+    }
+  }
+}
+('requestIdleCallback' in window)
+  ? requestIdleCallback(() => preloadRest(3), { timeout: 1500 })
+  : setTimeout(() => preloadRest(3), 800);
+
+/* ---------- Línea de tiempo cinematográfica ---------- */
+const tl = gsap.timeline({ defaults: { ease: 'none' } });
+
+SCENES.forEach((s, j) => {
+  const el = sceneEls[j], img = imgEls[j], cp = copyEls[j];
+  const lines = cp.querySelectorAll('.line');
+
+  /* Imagen: entra al final de la escena anterior, sale al final de la suya */
+  if (j > 0)     tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: XF, ease: 'power1.inOut' }, j - XF);
+  if (j < N - 1) tl.to(el,  { autoAlpha: 0, duration: XF, ease: 'power1.inOut' }, j + 1 - XF);
+
+  /* Profundidad: zoom por dimensiones reales (cada frame se renderiza
+     desde el bitmap completo — sin magnificación de capa GPU) */
+  if (!REDUCED) {
+    const dir = j % 2 ? -1 : 1;
+    const from = dir > 0 ? { left: '-11%', top: '-8%' } : { left: '-1%', top: '-3%' };
+    const to   = dir > 0 ? { left: '-1%',  top: '-3%' } : { left: '-6%', top: '-6%' };
+    tl.fromTo(img,
+      { width: '114%', height: '114%', ...from },
+      { width: '106%', height: '106%', ...to, duration: 1 + XF, ease: 'none' },
+      Math.max(0, j - XF));
+  }
+
+  /* Velo: leve paso por oscuro en cada transición */
+  if (j > 0 && !REDUCED) {
+    tl.fromTo(veil, { opacity: 0 },
+      { opacity: 0.24, duration: XF / 2, ease: 'power1.in', yoyo: true, repeat: 1 },
+      j - XF);
+  }
+
+  /* Texto: entra con cascada, sale flotando hacia arriba */
+  if (j > 0) {
+    tl.fromTo(cp, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, j - XF * 0.55);
+    tl.fromTo(lines, { y: REDUCED ? 0 : 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.07, ease: 'power2.out' },
+      j - XF * 0.55);
+  } else {
+    gsap.set(cp, { autoAlpha: 1 });
+    gsap.set(el, { autoAlpha: 1 });
+  }
+  if (j < N - 1) {
+    tl.to(cp, { autoAlpha: 0, y: REDUCED ? 0 : -34, duration: 0.4, ease: 'power2.in' },
+      j + 1 - XF * 0.9);
+  }
+});
+
+/* Puntos de reposo: centro de cada escena completamente visible */
+const restPoints = SCENES.map((_, j) => (j + (1 - XF) / 2) / N).concat([1]);
+
+const st = ScrollTrigger.create({
+  trigger: stage,
+  start: 'top top',
+  end: '+=' + (N * 115) + '%',
+  pin: true,
+  scrub: REDUCED ? true : 0.9,
+  anticipatePin: 1,
+  animation: tl,
+  onUpdate: self => updateUI(self.progress),
+});
+
+/* ---------- Snap suave al terminar de desplazarse ---------- */
+let snapTween = null, snapTimer = null;
+if (!REDUCED) {
+  const killSnap = () => { if (snapTween) { snapTween.kill(); snapTween = null; } };
+  window.addEventListener('wheel', killSnap, { passive: true });
+  window.addEventListener('touchstart', killSnap, { passive: true });
+  window.addEventListener('scroll', () => {
+    clearTimeout(snapTimer);
+    snapTimer = setTimeout(() => {
+      const p = st.progress;
+      let nearest = restPoints[0], best = Infinity;
+      for (const rp of restPoints) {
+        const d = Math.abs(p - rp);
+        if (d < best) { best = d; nearest = rp; }
+      }
+      if (best > 0.002) {
+        snapTween = gsap.to(window, {
+          scrollTo: st.start + nearest * (st.end - st.start),
+          duration: Math.min(0.9, 0.25 + best * 8),
+          ease: 'power2.inOut',
+          onComplete: () => { snapTween = null; },
+        });
+      }
+    }, 130);
+  }, { passive: true });
+}
+
+/* ---------- UI sincronizada ---------- */
+let activeIdx = -1;
+function updateUI(p) {
+  bar.style.transform = `scaleX(${p})`;
+  const idx = Math.min(N - 1, Math.floor(p * N + XF * 0.55));
+  if (idx !== activeIdx) {
+    activeIdx = idx;
+    dotEls.forEach((d, k) => {
+      d.classList.toggle('on', k === idx);
+      if (k === idx) d.setAttribute('aria-current', 'true');
+      else d.removeAttribute('aria-current');
+    });
+    countNum.textContent = pad(idx + 1);
+    countLbl.textContent = S(idx).eyebrow;
+    let navIdx = idx === 0 ? 0 : idx <= 5 ? 1 : idx <= 9 ? 2 : 4;
+    if (window.scrollY > st.end - 40) navIdx = 3;
+    navLinks.forEach((a, k) => a.classList.toggle('active', k === navIdx));
+  }
+  hint.classList.toggle('gone', p > 0.015);
+}
+countTot.textContent = pad(N);
+updateUI(0);
+
+/* ---------- Navegación por puntos ---------- */
+function goTo(i) {
+  const y = st.start + restPoints[i] * (st.end - st.start);
+  if (i === 0 || REDUCED) {
+    if (snapTween) { snapTween.kill(); snapTween = null; }
+    clearTimeout(snapTimer);
+    window.scrollTo(0, y);
+    tl.progress(restPoints[i]);
+    updateUI(restPoints[i]);
+    return;
+  }
+  gsap.to(window, {
+    scrollTo: y,
+    duration: 1.15,
+    ease: 'power3.inOut',
+  });
+}
+
+/* ---------- Navegación del encabezado y menú ---------- */
+const menu = document.getElementById('menu');
+function openMenu() {
+  menu.classList.add('open');
+  menu.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  if (!menu.classList.contains('open')) return;
+  menu.classList.remove('open');
+  menu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+document.getElementById('burger').addEventListener('click', openMenu);
+document.getElementById('menuClose').addEventListener('click', closeMenu);
+menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
+window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+document.querySelectorAll('[data-goto]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    closeMenu();
+    closeRsv();
+    goTo(+a.dataset.goto);
+  });
+});
+document.querySelectorAll('[data-gallery]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    closeMenu();
+    closeRsv();
+    gsap.to(window, {
+      scrollTo: document.querySelector('.gallery').offsetTop,
+      duration: REDUCED ? 0 : 1.3,
+      ease: 'power3.inOut',
+    });
+  });
+});
+
+/* ---------- Galería ---------- */
+const gFigs = [...document.querySelectorAll('.g-fig')];
+const gImgs = gFigs.map(f => f.querySelector('img'));
+
+/* entrada escalonada al hacer scroll */
+if (!REDUCED) {
+  gsap.from('.g-head .line', {
+    y: 34, opacity: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-head', start: 'top 88%', once: true },
+  });
+  gFigs.forEach((f, i) => {
+    gsap.from(f, {
+      y: 46, opacity: 0, duration: 1.1, ease: 'power3.out',
+      delay: (i % 3) * 0.09,
+      scrollTrigger: { trigger: f, start: 'top 92%', once: true },
+    });
+  });
+}
+
+/* ---------- Lightbox ---------- */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCount = document.getElementById('lbCount');
+let lbIdx = 0;
+
+function lbShow(i) {
+  lbIdx = (i + gImgs.length) % gImgs.length;
+  lbImg.src = gImgs[lbIdx].src;
+  lbImg.alt = gImgs[lbIdx].alt;
+  lbCount.textContent = `${pad(lbIdx + 1)} / ${pad(gImgs.length)}`;
+}
+function lbOpen(i) {
+  lbShow(i);
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function lbClose() {
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+gFigs.forEach((f, i) => {
+  f.addEventListener('click', () => lbOpen(i));
+  f.setAttribute('tabindex', '0');
+  f.setAttribute('role', 'button');
+  f.setAttribute('aria-label', 'Ampliar fotografía: ' + f.querySelector('figcaption').textContent);
+  f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(i); } });
+});
+document.getElementById('lbClose').addEventListener('click', lbClose);
+document.getElementById('lbPrev').addEventListener('click', () => lbShow(lbIdx - 1));
+document.getElementById('lbNext').addEventListener('click', () => lbShow(lbIdx + 1));
+lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
+window.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbShow(lbIdx - 1);
+  if (e.key === 'ArrowRight') lbShow(lbIdx + 1);
+});
+
+/* ---------- Entrada inicial ---------- */
+if (!REDUCED) {
+  gsap.from('.top', { y: -26, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.15 });
+  gsap.from(copyEls[0].querySelectorAll('.line'),
+    { y: 34, opacity: 0, duration: 1, stagger: 0.09, ease: 'power3.out', delay: 0.35 });
+  gsap.from('.foot', { y: 22, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.6 });
+  gsap.from('.dot', { x: 18, opacity: 0, duration: 0.8, stagger: 0.04, ease: 'power3.out', delay: 0.75 });
+}
+
+/* ---------- Panel de reserva ---------- */
+const rsv = document.getElementById('rsv');
+const rsvBack = document.getElementById('rsvBack');
+function openRsv() {
+  closeMenu();
+  rsv.classList.add('open'); rsvBack.classList.add('open');
+  rsv.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  navLinks.forEach((a, k) => a.classList.toggle('active', a.hasAttribute('data-open-rsv')));
+}
+function closeRsv() {
+  if (!rsv.classList.contains('open')) return;
+  rsv.classList.remove('open'); rsvBack.classList.remove('open');
+  rsv.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  activeIdx = -1;
+  updateUI(st.progress);
+}
+document.getElementById('rsvClose').addEventListener('click', closeRsv);
+rsvBack.addEventListener('click', closeRsv);
+window.addEventListener('keydown', e => { if (e.key === 'Escape') closeRsv(); });
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-open-rsv]');
+  if (!t) return;
+  e.preventDefault();
+  openRsv();
+});
+
+/* Calendario de fechas */
+const MESES_L = {
+  es: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+  en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+};
+const DOW_L = { es: ['L','M','X','J','V','S','D'], en: ['M','T','W','T','F','S','S'] };
+let MESES = MESES_L.es;
+const today = new Date(); today.setHours(0,0,0,0);
+const view = new Date(today.getFullYear(), today.getMonth(), 1);
+let selIn = null, selOut = null;
+const fmtD = d => d.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
+
+function renderCal() {
+  document.getElementById('calTitle').textContent = MESES[view.getMonth()] + ' ' + view.getFullYear();
+  document.getElementById('calPrev').disabled =
+    view.getFullYear() === today.getFullYear() && view.getMonth() === today.getMonth();
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  const y = view.getFullYear(), m = view.getMonth();
+  const first = (new Date(y, m, 1).getDay() + 6) % 7;
+  const days = new Date(y, m + 1, 0).getDate();
+  for (let p = 0; p < first; p++) {
+    const pad = document.createElement('span'); pad.className = 'rsv-day pad'; grid.appendChild(pad);
+  }
+  for (let d = 1; d <= days; d++) {
+    const dt = new Date(y, m, d);
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'rsv-day'; b.textContent = d;
+    if (dt < today) { b.classList.add('off'); b.disabled = true; }
+    else {
+      if (selIn && dt.getTime() === selIn.getTime()) b.classList.add('sel');
+      if (selOut && dt.getTime() === selOut.getTime()) b.classList.add('sel');
+      if (selIn && selOut && dt > selIn && dt < selOut) b.classList.add('range');
+      b.addEventListener('click', () => {
+        if (!selIn || (selIn && selOut) || dt <= selIn) { selIn = dt; selOut = null; }
+        else selOut = dt;
+        document.getElementById('rsvIn').textContent = fmtD(selIn);
+        document.getElementById('rsvOut').textContent = selOut ? fmtD(selOut) : '—';
+        renderCal();
+      });
+    }
+    grid.appendChild(b);
+  }
+}
+document.getElementById('calPrev').addEventListener('click', () => { view.setMonth(view.getMonth() - 1); renderCal(); });
+document.getElementById('calNext').addEventListener('click', () => { view.setMonth(view.getMonth() + 1); renderCal(); });
+renderCal();
+
+/* Huéspedes */
+let guests = 2;
+const gNum = document.getElementById('guestNum');
+document.getElementById('guestDown').addEventListener('click', () => { if (guests > 1) gNum.textContent = --guests; });
+document.getElementById('guestUp').addEventListener('click', () => { if (guests < 12) gNum.textContent = ++guests; });
+
+/* Enviar solicitud por WhatsApp */
+document.getElementById('rsvSend').addEventListener('click', function () {
+  const name = document.getElementById('rsvName').value.trim();
+  const phone = document.getElementById('rsvPhone').value.trim();
+  const mail = document.getElementById('rsvMail').value.trim();
+  if (!selIn || !selOut || !name || !phone) {
+    this.classList.add('err');
+    this.textContent = LANG === 'en' ? 'PLEASE COMPLETE DATES, NAME & PHONE' : 'COMPLETA FECHAS, NOMBRE Y TELÉFONO';
+    setTimeout(() => { this.classList.remove('err'); this.innerHTML = UI[LANG].rsvSend + ' <span class="arr">↗</span>'; }, 2200);
+    return;
+  }
+  const msg = LANG === 'en' ?
+    'Hello, I would like to request a booking at ESCAPADA · MAR.\n' +
+    '• Stay type: ' + document.getElementById('rsvTipo').value + '\n' +
+    '• Check-in: ' + fmtD(selIn) + ' · Check-out: ' + fmtD(selOut) + '\n' +
+    '• Guests: ' + guests + '\n' +
+    '• Name: ' + name + '\n' +
+    '• Phone: ' + phone +
+    (mail ? '\n• Email: ' + mail : '')
+  :
+    'Hola, quiero solicitar una reserva en ESCAPADA · MAR.\n' +
+    '• Tipo de estadía: ' + document.getElementById('rsvTipo').value + '\n' +
+    '• Entrada: ' + fmtD(selIn) + ' · Salida: ' + fmtD(selOut) + '\n' +
+    '• Huéspedes: ' + guests + '\n' +
+    '• Nombre: ' + name + '\n' +
+    '• Teléfono: ' + phone +
+    (mail ? '\n• Correo: ' + mail : '');
+  window.open('https://wa.me/573000000000?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+});
+
+/* ---------- Idioma ES / EN ---------- */
+const UI = {
+  es: {
+    nav: ['INICIO','DESTINOS','EXPERIENCIAS','GALERÍA','CONTACTO'],
+    menu: ['Inicio','Destinos','Experiencias','Galería','Contacto'],
+    cta: 'CONSULTAR ESTADÍA',
+    hint: 'O SIGUE DESLIZANDO',
+    menuFoot: 'FRENTE AL MAR',
+    gEyebrow: 'GALERÍA',
+    gTitle: 'Cada rincón, frente al mar.',
+    gSub: 'Fotografías reales del apartamento y las zonas comunes del edificio.',
+    gCaps: ['PLAYA · ATARDECER','PISCINA FRENTE AL MAR','ENTRADA TROPICAL','SALA PRINCIPAL','TERRAZA Y JARDINES','COCINA','COMEDOR','GIMNASIO','CANCHA EN LA AZOTEA','BALCÓN CON VISTA','SALÓN SOCIAL'],
+    heroE: 'RESERVA TU ESTADÍA',
+    heroT: 'Vive el mar<br><em>a tu ritmo.</em>',
+    heroP: 'Selecciona tus fechas y asegura tu próxima estadía frente al mar.',
+    rsvH: 'Solicita tu reserva',
+    rsvSub: 'Cuéntanos cuándo quieres venir y te confirmamos la disponibilidad por WhatsApp o correo.',
+    rsvTipo: 'Tipo de estadía',
+    rsvTipos: ['Apartamento completo','Fin de semana','Estadía larga'],
+    rsvFechas: 'Fechas de estadía',
+    rsvIn: 'ENTRADA', rsvOut: 'SALIDA',
+    rsvHues: 'Número de huéspedes',
+    rsvNombre: 'Nombre completo',
+    rsvTel: 'WhatsApp / Teléfono',
+    rsvMail: 'Correo electrónico',
+    rsvSend: 'ENVIAR SOLICITUD DE RESERVA',
+    rsvSafe: 'Tus datos están seguros. Solo los usaremos para confirmar tu solicitud.',
+    phName: 'Ej: Juan Sebastián Zuluaga', phTel: '+57 300 123 4567', phMail: 'ejemplo@correo.com',
+    legend: ['Disponible','Seleccionado','No disponible'],
+  },
+  en: {
+    nav: ['HOME','DESTINATIONS','EXPERIENCES','GALLERY','CONTACT'],
+    menu: ['Home','Destinations','Experiences','Gallery','Contact'],
+    cta: 'BOOK YOUR STAY',
+    hint: 'KEEP SCROLLING',
+    menuFoot: 'BY THE SEA',
+    gEyebrow: 'GALLERY',
+    gTitle: 'Every corner, facing the sea.',
+    gSub: 'Real photographs of the apartment and the building\'s common areas.',
+    gCaps: ['BEACH · SUNSET','POOL FACING THE SEA','TROPICAL ENTRANCE','LIVING ROOM','TERRACE & GARDENS','KITCHEN','DINING ROOM','GYM','ROOFTOP COURT','BALCONY VIEW','SOCIAL LOUNGE'],
+    heroE: 'BOOK YOUR STAY',
+    heroT: 'Live the sea<br><em>at your pace.</em>',
+    heroP: 'Pick your dates and secure your next seaside stay.',
+    rsvH: 'Request your booking',
+    rsvSub: 'Tell us when you want to come and we will confirm availability via WhatsApp or email.',
+    rsvTipo: 'Stay type',
+    rsvTipos: ['Entire apartment','Weekend getaway','Long stay'],
+    rsvFechas: 'Stay dates',
+    rsvIn: 'CHECK-IN', rsvOut: 'CHECK-OUT',
+    rsvHues: 'Number of guests',
+    rsvNombre: 'Full name',
+    rsvTel: 'WhatsApp / Phone',
+    rsvMail: 'Email',
+    rsvSend: 'SEND BOOKING REQUEST',
+    rsvSafe: 'Your data is safe. We will only use it to confirm your request.',
+    phName: 'E.g.: John Smith', phTel: '+1 555 123 4567', phMail: 'example@mail.com',
+    legend: ['Available','Selected','Unavailable'],
+  },
+};
+
+function applyLang() {
+  const u = UI[LANG];
+  document.documentElement.lang = LANG;
+  document.getElementById('langBtn').textContent = LANG === 'en' ? 'ES' : 'EN';
+
+  /* Navegación */
+  navLinks.forEach((a, i) => { a.textContent = u.nav[i]; });
+  document.querySelectorAll('.menu-nav a').forEach((a, i) => {
+    a.innerHTML = a.querySelector('small').outerHTML + u.menu[i];
+  });
+  document.getElementById('ctaTop').innerHTML = u.cta + ' <span class="arr">↗</span>';
+  document.querySelector('#hint span:last-child').textContent = u.hint;
+  document.querySelectorAll('.menu-foot span')[1].textContent = u.menuFoot;
+
+  /* Escenas (textos en su lugar — conserva las animaciones) */
+  copyEls.forEach((cp, i) => updateCopy(cp, i));
+  dotEls.forEach((d, i) => {
+    d.querySelector('span').textContent = S(i).nav.toUpperCase();
+    d.setAttribute('aria-label', (LANG === 'en' ? 'Go to scene ' : 'Ir a la escena ') + (i + 1) + ': ' + S(i).nav);
+  });
+  imgEls.forEach((im, i) => { im.alt = S(i).alt; });
+  activeIdx = -1;
+  updateUI(st.progress);
+
+  /* Galería */
+  document.querySelector('.g-head .eyebrow').textContent = u.gEyebrow;
+  document.querySelector('.g-head h2').textContent = u.gTitle;
+  document.querySelector('.g-head p').textContent = u.gSub;
+  document.querySelectorAll('.g-fig figcaption').forEach((c, i) => { c.textContent = u.gCaps[i]; });
+
+  /* Panel de reserva */
+  document.querySelector('.rsv-hero .eyebrow').textContent = u.heroE;
+  document.querySelector('.rsv-hero h3').innerHTML = u.heroT;
+  document.querySelector('.rsv-hero p').textContent = u.heroP;
+  document.querySelector('.rsv h2').textContent = u.rsvH;
+  document.querySelector('.rsv-sub').textContent = u.rsvSub;
+  const labels = document.querySelectorAll('.rsv-label');
+  const labelTxts = [u.rsvTipo, u.rsvFechas, u.rsvHues, u.rsvNombre, u.rsvTel, u.rsvMail];
+  labels.forEach((l, i) => { if (labelTxts[i]) l.childNodes[0].nodeValue = labelTxts[i]; });
+  [...document.querySelectorAll('#rsvTipo option')].forEach((o, i) => { o.textContent = u.rsvTipos[i]; });
+  const dLabels = document.querySelectorAll('.rsv-date small');
+  dLabels[0].textContent = u.rsvIn; dLabels[1].textContent = u.rsvOut;
+  document.querySelectorAll('.rsv-legend > span').forEach((s, i) => { s.lastChild.textContent = u.legend[i]; });
+  document.getElementById('rsvName').placeholder = u.phName;
+  document.getElementById('rsvPhone').placeholder = u.phTel;
+  document.getElementById('rsvMail').placeholder = u.phMail;
+  document.getElementById('rsvSend').innerHTML = u.rsvSend + ' <span class="arr">↗</span>';
+  document.querySelector('.rsv-safe').lastChild.textContent = u.rsvSafe;
+
+  /* Calendario */
+  MESES = MESES_L[LANG];
+  document.querySelectorAll('.rsv-dow span').forEach((s, i) => { s.textContent = DOW_L[LANG][i]; });
+  renderCal();
+}
+document.getElementById('langBtn').addEventListener('click', () => {
+  LANG = LANG === 'en' ? 'es' : 'en';
+  localStorage.setItem('em-lang', LANG);
+  applyLang();
+});
+if (LANG === 'en') applyLang();
+</script>
+<noscript>
+  <div style="position:fixed;inset:0;background:#071018;color:#f7f4ee;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:Georgia,serif;z-index:99">
+    <div><img src="images/escena-11.webp?v=6" alt="Entrada tropical frente al mar" style="max-width:90vw;max-height:60vh;border-radius:8px"><p style="margin-top:20px">ESCAPADA · MAR — Activa JavaScript para vivir el recorrido completo.</p></div>
+  </div>
+</noscript>
+</body>
+</html>
