@@ -378,20 +378,27 @@ body{
   .nav{display:none}
 }
 @media(max-width:760px){
-  .top{padding:20px 6vw}
-  .brand{font-size:10.5px;letter-spacing:.2em}
-  .cta{padding:11px 16px;font-size:10px}
-  .copy{max-width:90vw}
-  .headline{font-size:clamp(38px,10.5vw,64px);margin:18px 0 16px}
-  .eyebrow{font-size:10px;gap:12px}
-  .eyebrow::before,.copy--center .eyebrow::after{width:24px}
-  .detail{font-size:14px}
-  .btn{padding:15px 26px;font-size:12px}
-  .feats{flex-direction:column;gap:16px;margin-top:30px}
-  .feat{padding:0;justify-content:flex-start}
+  .top{padding:14px 4vw}
+  .top-left{gap:10px}
+  .brand{font-size:9.5px;letter-spacing:.16em}
+  .top-right{gap:8px}
+  .lang{padding:8px 11px;font-size:9.5px;min-width:38px}
+  .cta{padding:10px 13px;font-size:9px;letter-spacing:.08em;gap:6px}
+  .copy{max-width:92vw;top:50%}
+  .headline{font-size:clamp(30px,9.2vw,54px);margin:14px 0 14px}
+  .eyebrow{font-size:9.5px;letter-spacing:.26em;gap:10px}
+  .eyebrow::before,.copy .eyebrow::after{width:20px}
+  .detail{font-size:13.5px}
+  .btn{padding:14px 24px;font-size:11px;margin-top:22px}
+  .feats{flex-direction:column;gap:10px;margin-top:22px}
+  .feat{padding:0;justify-content:center;gap:10px}
+  .feat svg{width:16px;height:16px}
+  .feat b{font-size:12px}.feat span{font-size:11px}
   .feat+.feat{border-left:0}
+  .g-more{display:none}
   .menu-nav a{gap:14px}
-  .foot{left:7vw;right:7vw;bottom:6%}
+  .foot{left:7vw;right:7vw;bottom:5%}
+  .hint span{font-size:8.5px;letter-spacing:.24em}
   .count .lbl{display:none}
   .dots{right:4.5vw;gap:10px}
   .dot span{display:none}
@@ -406,6 +413,10 @@ body{
    .lb-btn{width:44px;height:44px;font-size:16px}
   .lb-prev{left:12px}.lb-next{right:12px}
   .lb-close{top:18px;right:16px}
+}
+@media(max-width:400px){
+  .cta .arr{display:none}
+  .cta{padding:10px 11px}
 }
 @media(prefers-reduced-motion:reduce){
   .hint .rail::after{animation:none}
@@ -565,8 +576,16 @@ body{
 @media(max-height:800px) and (min-width:761px){ .rsv-in{zoom:.68} }
 @media(max-height:710px) and (min-width:761px){ .rsv-in{zoom:.6} }
 @media(max-width:760px){
-  .rsv{inset:0;width:100vw;border-radius:0;padding:50px 20px 22px}
+  .rsv{inset:0;width:100vw;border-radius:0;padding:44px 18px 18px;overflow-y:auto}
+  .rsv h2{font-size:26px;margin-bottom:6px}
+  .rsv-sub{font-size:12.5px;margin-bottom:16px}
+  .rsv-label{font-size:9.5px;margin-top:14px}
+  .rsv-cal{padding:12px 12px 10px;margin-top:8px}
+  .rsv-send{margin-top:16px;padding:14px 18px;font-size:11px}
+  .rsv-safe{margin-top:10px;font-size:9.5px}
 }
+@media(max-width:760px) and (max-height:880px){ .rsv-in{zoom:.86} }
+@media(max-width:760px) and (max-height:740px){ .rsv-in{zoom:.78} }
 </style>
 </head>
 <body>
