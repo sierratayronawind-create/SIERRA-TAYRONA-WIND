@@ -401,6 +401,7 @@ body{
   .hint span{font-size:8.5px;letter-spacing:.24em}
   .count .lbl{display:none}
   .dots{right:4.5vw;gap:10px}
+  .scene img{object-position:var(--fp,50% 50%)}
   .dot span{display:none}
   .dot i{width:6px;height:6px}
   .dot.on i{height:20px}
@@ -912,12 +913,16 @@ const SCENES_EN = [
 let LANG = localStorage.getItem('em-lang') || 'es';
 const S = i => LANG === 'en' ? SCENES_EN[i] : SCENES[i];
 const FEATS_ES = [['Fechas','en tiempo real'],['Ubicación','frente al mar'],['Experiencias','inolvidables']];
+/* Punto focal de cada foto en pantallas angostas (object-position) */
+const FOCUS = ['50% 62%','50% 55%','50% 55%','50% 50%','50% 55%','50% 55%',
+               '42% 50%','50% 50%','50% 55%','50% 60%','50% 55%','50% 55%'];
 
 /* ------------------------------------------------------------ */
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NARROW = window.matchMedia('(max-width: 760px)').matches;
 const N = SCENES.length;
 const XF = REDUCED ? 0.14 : 0.42;           // fracción de escena dedicada a la transición
 const stage  = document.getElementById('stage');
@@ -979,6 +984,7 @@ SCENES.forEach((s, i) => {
   sc.className = 'scene';
   const img = document.createElement('img');
   img.alt = S(i).alt;
+  img.style.setProperty('--fp', FOCUS[i]);
   img.decoding = 'async';
   if (i < 3) img.src = s.img;               // primeras escenas: carga inmediata
   else img.dataset.src = s.img;             // resto: precarga en segundo plano
@@ -1032,11 +1038,13 @@ SCENES.forEach((s, j) => {
      desde el bitmap completo — sin magnificación de capa GPU) */
   if (!REDUCED) {
     const dir = j % 2 ? -1 : 1;
+    /* en pantallas angostas el zoom se suaviza para mostrar más foto */
+    const Z = NARROW ? { w: '110%', h: '110%', z: '105%' } : { w: '114%', h: '114%', z: '106%' };
     const from = dir > 0 ? { left: '-11%', top: '-8%' } : { left: '-1%', top: '-3%' };
     const to   = dir > 0 ? { left: '-1%',  top: '-3%' } : { left: '-6%', top: '-6%' };
     tl.fromTo(img,
-      { width: '114%', height: '114%', ...from },
-      { width: '106%', height: '106%', ...to, duration: 1 + XF, ease: 'none' },
+      { width: Z.w, height: Z.h, ...from },
+      { width: Z.z, height: Z.z, ...to, duration: 1 + XF, ease: 'none' },
       Math.max(0, j - XF));
   }
 
