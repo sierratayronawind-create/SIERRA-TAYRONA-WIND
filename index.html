@@ -586,8 +586,15 @@ body{
   /* iOS hace zoom automático en inputs con fuente <16px */
   .rsv-input,.rsv-select{font-size:16px}
 }
-@media(max-width:760px) and (max-height:880px){ .rsv-in{zoom:.86} }
-@media(max-width:760px) and (max-height:740px){ .rsv-in{zoom:.78} }
+@media(max-width:760px) and (max-height:880px){
+  .rsv-in{zoom:.86}
+  /* con zoom .86 el texto renderiza ~13.8px → compensar para que iOS no haga zoom */
+  .rsv-input,.rsv-select{font-size:19px}
+}
+@media(max-width:760px) and (max-height:740px){
+  .rsv-in{zoom:.78}
+  .rsv-input,.rsv-select{font-size:21px}
+}
 </style>
 </head>
 <body>
