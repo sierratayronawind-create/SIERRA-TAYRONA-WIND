@@ -99,6 +99,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 ::selection{background:var(--gold);color:var(--ink)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 ::-webkit-scrollbar{width:9px}
 ::-webkit-scrollbar-track{background:var(--ink-deep)}
 ::-webkit-scrollbar-thumb{background:#2c3d47;border-radius:8px}
@@ -655,6 +656,7 @@ body{
   font-size:9px;line-height:1.5;color:rgba(247,244,238,.45);margin-top:10px;text-align:center;
 }
 .rsv-safe svg{width:11px;height:11px;stroke:rgba(247,244,238,.5);fill:none;stroke-width:1.7;flex:none}
+.rsv-brand{font-size:8.5px;letter-spacing:.3em;color:rgba(234,208,172,.55);margin-top:14px;text-align:center}
 @media(max-width:900px){
   .rsv-hero{display:none}
 }
@@ -685,6 +687,8 @@ body{
 </style>
 </head>
 <body>
+
+<h1 class="sr-only">Sierra Tayrona Wind — Apartamento turístico frente al mar en Playa Salguero, Santa Marta</h1>
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-in">
@@ -773,7 +777,7 @@ body{
     <a href="#" data-gallery><small>04</small>Galería</a>
     <a href="#" data-open-rsv><small>05</small>Contacto</a>
   </nav>
-  <div class="menu-foot"><span>ESCAPADA&nbsp;·&nbsp;MAR</span><span>FRENTE AL MAR</span></div>
+  <div class="menu-foot"><span>ESCAPADA&nbsp;·&nbsp;MAR</span><span>SIERRA TAYRONA WIND</span><span>FRENTE AL MAR</span></div>
 </div>
 
 <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Fotografía ampliada">
@@ -849,6 +853,7 @@ body{
   <button class="rsv-send" id="rsvSend">ENVIAR SOLICITUD DE RESERVA <span class="arr">↗</span></button>
   <p class="rsv-done" id="rsvDone"></p>
   <p class="rsv-safe"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Tus datos están seguros. Solo los usaremos para confirmar tu solicitud.</p>
+  <p class="rsv-brand">SIERRA TAYRONA WIND · PLAYA SALGUERO · SANTA MARTA</p>
   </div>
 </aside>
 
@@ -1467,7 +1472,7 @@ document.getElementById('rsvSend').addEventListener('click', function () {
     return;
   }
   const msg = LANG === 'en' ?
-    'Hello, I would like to request a booking at ESCAPADA · MAR.\n' +
+    'Hello, I would like to request a booking at Sierra Tayrona Wind.\n' +
     '• Stay type: ' + document.getElementById('rsvTipo').value + '\n' +
     '• Check-in: ' + fmtD(selIn) + ' · Check-out: ' + fmtD(selOut) + '\n' +
     '• Guests: ' + guests + '\n' +
@@ -1475,7 +1480,7 @@ document.getElementById('rsvSend').addEventListener('click', function () {
     '• Phone: ' + phone +
     (mail ? '\n• Email: ' + mail : '')
   :
-    'Hola, quiero solicitar una reserva en ESCAPADA · MAR.\n' +
+    'Hola, quiero solicitar una reserva en Sierra Tayrona Wind.\n' +
     '• Tipo de estadía: ' + document.getElementById('rsvTipo').value + '\n' +
     '• Entrada: ' + fmtD(selIn) + ' · Salida: ' + fmtD(selOut) + '\n' +
     '• Huéspedes: ' + guests + '\n' +
@@ -1570,7 +1575,7 @@ function applyLang() {
   });
   document.getElementById('ctaTop').innerHTML = u.cta + ' <span class="arr">↗</span>';
   document.querySelector('#hint span:last-child').textContent = u.hint;
-  document.querySelectorAll('.menu-foot span')[1].textContent = u.menuFoot;
+  document.querySelectorAll('.menu-foot span')[2].textContent = u.menuFoot;
 
   /* Escenas (textos en su lugar — conserva las animaciones) */
   copyEls.forEach((cp, i) => updateCopy(cp, i));
@@ -1635,7 +1640,7 @@ setTimeout(dismissLoader, 4000); // respaldo
 </script>
 <noscript>
   <div style="position:fixed;inset:0;background:#071018;color:#f7f4ee;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:Georgia,serif;z-index:99">
-    <div><img src="images/escena-11.webp?v=6" alt="Entrada tropical frente al mar" style="max-width:90vw;max-height:60vh;border-radius:8px"><p style="margin-top:20px">ESCAPADA · MAR — Activa JavaScript para vivir el recorrido completo.</p></div>
+    <div><img src="images/escena-11.webp?v=6" alt="Entrada tropical frente al mar" style="max-width:90vw;max-height:60vh;border-radius:8px"><p style="margin-top:20px">SIERRA TAYRONA WIND · ESCAPADA · MAR — Activa JavaScript para vivir el recorrido completo.</p></div>
   </div>
 </noscript>
 </body>
