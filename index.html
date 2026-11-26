@@ -701,6 +701,17 @@ body.modal .cur,body.modal .cur-ring{display:none}
 }
 .rsv-send:hover{filter:brightness(1.06);transform:translateY(-2px)}
 .rsv-send.err{background:#d98f7f;box-shadow:none}
+.rsv-sum{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin:-6px 0 16px;padding:9px 12px;border-radius:11px;
+  background:rgba(234,208,172,.08);border:1px solid rgba(234,208,172,.28);
+  font-size:9.5px;font-weight:600;letter-spacing:.13em;color:var(--gold);
+  text-transform:uppercase;text-align:center;transition:border-color .3s;
+}
+.rsv-sum i{width:3px;height:3px;border-radius:50%;background:rgba(234,208,172,.55);flex:none}
+.rsv-date.set{border-color:rgba(234,208,172,.65);background:rgba(234,208,172,.09)}
+.rsv-day.today{box-shadow:inset 0 0 0 1px rgba(234,208,172,.55)}
+.rsv-input.err,.rsv-dates.err .rsv-date{border-color:#d98f7f!important}
 .rsv-done{
   display:none;margin-top:12px;text-align:center;
   font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gold);
@@ -869,6 +880,7 @@ body.modal .cur,body.modal .cur-ring{display:none}
   <div class="rsv-in">
   <h2>Solicita tu reserva</h2>
   <p class="rsv-sub">Cuéntanos cuándo quieres venir y te confirmamos la disponibilidad por WhatsApp o correo.</p>
+  <div class="rsv-sum" aria-live="polite"><span id="sumDates">Elige tus fechas</span><i></i><span id="sumNights">—</span><i></i><span id="sumGuests">2 huéspedes</span></div>
 
   <label class="rsv-label">Tipo de estadía
     <select class="rsv-select" id="rsvTipo">
@@ -1520,6 +1532,7 @@ function renderCal() {
     b.type = 'button'; b.className = 'rsv-day'; b.textContent = d;
     if (dt < today) { b.classList.add('off'); b.disabled = true; }
     else {
+      if (dt.getTime() === today.getTime()) b.classList.add('today');
       if (selIn && dt.getTime() === selIn.getTime()) b.classList.add('sel');
       if (selOut && dt.getTime() === selOut.getTime()) b.classList.add('sel');
       if (selIn && selOut && dt > selIn && dt < selOut) b.classList.add('range');
@@ -1528,7 +1541,9 @@ function renderCal() {
         else selOut = dt;
         document.getElementById('rsvIn').textContent = fmtD(selIn);
         document.getElementById('rsvOut').textContent = selOut ? fmtD(selOut) : '—';
+        document.querySelector('.rsv-dates').classList.remove('err');
         renderCal();
+        updateSum();
       });
     }
     grid.appendChild(b);
@@ -1541,8 +1556,31 @@ renderCal();
 /* Huéspedes */
 let guests = 2;
 const gNum = document.getElementById('guestNum');
-document.getElementById('guestDown').addEventListener('click', () => { if (guests > 1) gNum.textContent = --guests; });
-document.getElementById('guestUp').addEventListener('click', () => { if (guests < 12) gNum.textContent = ++guests; });
+document.getElementById('guestDown').addEventListener('click', () => { if (guests > 1) gNum.textContent = --guests; updateSum(); });
+document.getElementById('guestUp').addEventListener('click', () => { if (guests < 12) gNum.textContent = ++guests; updateSum(); });
+
+/* Resumen en vivo: fechas + noches + huéspedes */
+const sumDates = document.getElementById('sumDates');
+const sumNights = document.getElementById('sumNights');
+const sumGuests = document.getElementById('sumGuests');
+const nights = () => selIn && selOut ? Math.round((selOut - selIn) / 864e5) : 0;
+const fmtS = d => d.toLocaleDateString(LANG === 'en' ? 'en-US' : 'es', { day: 'numeric', month: 'short' }).replace('.', '').toUpperCase();
+function updateSum() {
+  const n = nights();
+  if (!selIn) sumDates.textContent = LANG === 'en' ? 'PICK YOUR DATES' : 'ELIGE TUS FECHAS';
+  else if (!selOut) sumDates.textContent = fmtS(selIn) + (LANG === 'en' ? ' · NOW CHECK-OUT' : ' · AHORA LA SALIDA');
+  else sumDates.textContent = fmtS(selIn) + ' → ' + fmtS(selOut);
+  sumNights.textContent = n ? n + (LANG === 'en' ? (n > 1 ? ' NIGHTS' : ' NIGHT') : (n > 1 ? ' NOCHES' : ' NOCHE')) : '—';
+  sumGuests.textContent = guests + (LANG === 'en' ? ' GUESTS' : ' HUÉSPEDES');
+  const boxes = document.querySelectorAll('.rsv-date');
+  boxes[0].classList.toggle('set', !!selIn);
+  boxes[1].classList.toggle('set', !!selOut);
+}
+updateSum();
+
+/* Limpia el error rojo al escribir */
+['rsvName', 'rsvPhone'].forEach(id =>
+  document.getElementById(id).addEventListener('input', e => e.target.classList.remove('err')));
 
 /* Enviar solicitud por WhatsApp */
 document.getElementById('rsvSend').addEventListener('click', function () {
@@ -1552,13 +1590,16 @@ document.getElementById('rsvSend').addEventListener('click', function () {
   if (!selIn || !selOut || !name || !phone) {
     this.classList.add('err');
     this.textContent = LANG === 'en' ? 'PLEASE COMPLETE DATES, NAME & PHONE' : 'COMPLETA FECHAS, NOMBRE Y TELÉFONO';
+    document.getElementById('rsvName').classList.toggle('err', !name);
+    document.getElementById('rsvPhone').classList.toggle('err', !phone);
+    document.querySelector('.rsv-dates').classList.toggle('err', !(selIn && selOut));
     setTimeout(() => { this.classList.remove('err'); this.innerHTML = UI[LANG].rsvSend + ' <span class="arr">↗</span>'; }, 2200);
     return;
   }
   const msg = LANG === 'en' ?
     'Hello, I would like to request a booking at Sierra Tayrona Wind.\n' +
     '• Stay type: ' + document.getElementById('rsvTipo').value + '\n' +
-    '• Check-in: ' + fmtD(selIn) + ' · Check-out: ' + fmtD(selOut) + '\n' +
+    '• Check-in: ' + fmtD(selIn) + ' · Check-out: ' + fmtD(selOut) + ' (' + nights() + (nights() > 1 ? ' nights' : ' night') + ')\n' +
     '• Guests: ' + guests + '\n' +
     '• Name: ' + name + '\n' +
     '• Phone: ' + phone +
@@ -1566,7 +1607,7 @@ document.getElementById('rsvSend').addEventListener('click', function () {
   :
     'Hola, quiero solicitar una reserva en Sierra Tayrona Wind.\n' +
     '• Tipo de estadía: ' + document.getElementById('rsvTipo').value + '\n' +
-    '• Entrada: ' + fmtD(selIn) + ' · Salida: ' + fmtD(selOut) + '\n' +
+    '• Entrada: ' + fmtD(selIn) + ' · Salida: ' + fmtD(selOut) + ' (' + nights() + (nights() > 1 ? ' noches' : ' noche') + ')\n' +
     '• Huéspedes: ' + guests + '\n' +
     '• Nombre: ' + name + '\n' +
     '• Teléfono: ' + phone +
@@ -1700,6 +1741,7 @@ function applyLang() {
   MESES = MESES_L[LANG];
   document.querySelectorAll('.rsv-dow span').forEach((s, i) => { s.textContent = DOW_L[LANG][i]; });
   renderCal();
+  updateSum();
 }
 document.getElementById('langBtn').addEventListener('click', () => {
   LANG = LANG === 'en' ? 'es' : 'en';
